@@ -1,4 +1,4 @@
-# BaseMachina Terraform Modules
+# BaseMachina Bridge Terraform Module
 
 BaseMachina BridgeをAWS・GCPクラウド環境に簡単にデプロイするためのTerraformモジュール集です。
 
