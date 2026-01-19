@@ -1,4 +1,4 @@
-module github.com/basemachina/terraform-basemachina-modules/test
+module github.com/basemachina/terraform-basemachina-bridge/test
 
 go 1.21
 

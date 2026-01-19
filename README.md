@@ -45,7 +45,7 @@ BaseMachina Bridgeは、BaseMachinaからお客様のプライベートデータ
 
 ```hcl
 module "bridge" {
-  source = "github.com/basemachina/terraform-basemachina-modules//modules/aws/ecs-fargate"
+  source = "github.com/basemachina/terraform-basemachina-bridge//modules/aws/ecs-fargate"
 
   # ネットワーク設定
   vpc_id             = "vpc-xxxxx"
@@ -85,7 +85,7 @@ module "bridge" {
 
 ```hcl
 module "bridge" {
-  source = "github.com/basemachina/terraform-basemachina-modules//modules/gcp/cloud-run"
+  source = "github.com/basemachina/terraform-basemachina-bridge//modules/gcp/cloud-run"
 
   # プロジェクト設定
   project_id = "my-gcp-project"
@@ -112,7 +112,7 @@ module "bridge" {
 ## ディレクトリ構造
 
 ```
-terraform-basemachina-modules/
+terraform-basemachina-bridge/
 ├── modules/                   # 再利用可能なTerraformモジュール
 │   ├── aws/
 │   │   └── ecs-fargate/       # AWS ECS Fargateモジュール（実装済み）
