@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# GCP リソース強制クリーンアップスクリプト
+# Google Cloud リソース強制クリーンアップスクリプト
 #
 # 使用方法:
 #   ./cleanup.sh <project-id> [service-name-prefix]
@@ -29,7 +29,7 @@ PROJECT_ID=$1
 SERVICE_NAME_PREFIX=${2:-"basemachina-bridge-example"}
 
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-echo "GCP リソース強制クリーンアップ"
+echo "Google Cloud リソース強制クリーンアップ"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 echo "プロジェクト: $PROJECT_ID"
@@ -282,7 +282,7 @@ for region in asia-northeast1 us-central1 europe-west1; do
             echo "    - 削除試行中: $address (リージョン: $region)"
             # serverless-ipv4は削除できない場合があるため、エラーを無視
             gcloud compute addresses delete $address --project=$PROJECT_ID --region=$region --quiet 2>/dev/null || {
-                echo "      ⚠️  削除に失敗（GCPが自動クリーンアップする可能性があります）"
+                echo "      ⚠️  削除に失敗（Google Cloudが自動クリーンアップする可能性があります）"
             }
         done
     fi
@@ -363,5 +363,5 @@ echo "✅ クリーンアップ完了"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 echo "すべてのリソースの削除を試みました。"
-echo "GCPコンソールで残存リソースがないことを確認してください。"
+echo "Google Cloudコンソールで残存リソースがないことを確認してください。"
 echo ""

@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# GCP リソース簡易クリーンアップスクリプト
+# Google Cloud リソース簡易クリーンアップスクリプト
 #
 # VPCネットワークを削除すると、VPC Peeringも一緒に削除されます。
 # Cloud SQLの削除は時間がかかるため、このスクリプトでは削除を開始するだけです。
@@ -90,7 +90,7 @@ echo "━━━━━━━━━━━━━━━━━━━━━━━━�
 echo ""
 echo "注意:"
 echo "- Cloud SQLインスタンスがまだ削除中の場合があります"
-echo "- GCPコンソールで削除の完了を確認してください"
+echo "- Google Cloudコンソールで削除の完了を確認してください"
 echo ""
 echo "残っているCloud SQLインスタンスを確認:"
 echo "  gcloud sql instances list --project=$PROJECT_ID --filter=\"name:$SERVICE_NAME\""

@@ -335,9 +335,9 @@ GitHub ActionsなどのCI/CDパイプラインで実行する場合：
 
 7. **テスト失敗時**: ログを確認してトラブルシューティングを行ってください
 
-## GCP Cloud Runテスト
+## Google Cloud Cloud Runテスト
 
-GCP Cloud Runモジュールの統合テストです。[Terratest](https://terratest.gruntwork.io/)を使用して実装されており、実際のGCPリソースをデプロイして検証します。
+Google Cloud Cloud Runモジュールの統合テストです。[Terratest](https://terratest.gruntwork.io/)を使用して実装されており、実際のGoogle Cloudリソースをデプロイして検証します。
 
 ### テスト内容
 
@@ -367,11 +367,11 @@ GCP Cloud Runモジュールの統合テストです。[Terratest](https://terra
    - Load Balancer IPアドレスとの一致確認
    - Cloud Armorアクセス制御の動作確認
 
-### GCPテスト前提条件
+### Google Cloudテスト前提条件
 
-#### 1. GCPプロジェクト
+#### 1. Google Cloudプロジェクト
 
-有効なGCPプロジェクトと以下の有効化されたAPI：
+有効なGoogle Cloudプロジェクトと以下の有効化されたAPI：
 
 ```bash
 gcloud services enable run.googleapis.com
@@ -383,7 +383,7 @@ gcloud services enable dns.googleapis.com  # DNS統合を使用する場合
 
 #### 2. 認証情報
 
-GCPへの認証を設定します：
+Google Cloudへの認証を設定します：
 
 ```bash
 # サービスアカウントを使用する場合
@@ -410,20 +410,20 @@ gcloud dns managed-zones create example-com \
   --description="Test domain"
 ```
 
-### GCP環境変数
+### Google Cloud環境変数
 
 #### 必須環境変数
 
 | 変数名 | 説明 | 例 |
 |--------|------|-----|
-| `TEST_GCP_PROJECT_ID` | テスト用のGCPプロジェクトID | `my-test-project` |
+| `TEST_GCP_PROJECT_ID` | テスト用のGoogle CloudプロジェクトID | `my-test-project` |
 | `TEST_TENANT_ID` | BaseMachinaテナントID | `tenant-123` |
 
 #### オプション環境変数
 
 | 変数名 | 説明 | デフォルト | 例 |
 |--------|------|-----------|-----|
-| `TEST_GCP_REGION` | GCPリージョン | `asia-northeast1` | `us-central1` |
+| `TEST_GCP_REGION` | Google Cloudリージョン | `asia-northeast1` | `us-central1` |
 | `TEST_DOMAIN_NAME` | カスタムドメイン名（HTTPS/DNSテスト用） | なし | `bridge-test.example.com` |
 | `TEST_DNS_ZONE_NAME` | Cloud DNS Managed Zone名 | なし | `example-com` |
 
@@ -447,7 +447,7 @@ export TEST_DOMAIN_NAME="bridge-test.example.com"
 export TEST_DNS_ZONE_NAME="example-com"
 ```
 
-### GCPテスト実行手順
+### Google Cloudテスト実行手順
 
 #### 1. 環境変数の設定
 
@@ -480,7 +480,7 @@ go test -v ./gcp -run TestCloudRunModule/CloudSQLInstanceExists -timeout 30m
 go test -v ./gcp -run TestCloudRunModule/DNSResolutionAndLoadBalancer -timeout 30m
 ```
 
-### GCPテスト実行時の注意事項
+### Google Cloudテスト実行時の注意事項
 
 #### タイムアウト
 
@@ -530,9 +530,9 @@ terraform destroy
 
 **注意**: terraform destroyはVPC Peering削除エラーで失敗する可能性があります。その場合は上記のquick-cleanup.shスクリプトを使用してください。
 
-**手動クリーンアップ（GCPコンソール）**:
+**手動クリーンアップ（Google Cloudコンソール）**:
 
-GCPコンソールから以下のリソースを手動で削除：
+Google Cloudコンソールから以下のリソースを手動で削除：
 - Cloud Runサービス: `bridge-test-*` または `basemachina-bridge-example`
 - Cloud SQLインスタンス: `bridge-test-*-db-*` または `basemachina-bridge-example-db-*`
 - Load Balancer関連リソース
@@ -540,7 +540,7 @@ GCPコンソールから以下のリソースを手動で削除：
 
 #### コスト
 
-テストは実際のGCPリソースを作成するため、以下のコストが発生します：
+テストは実際のGoogle Cloudリソースを作成するため、以下のコストが発生します：
 
 - Cloud Run: 実行時間に応じた課金（無料枠あり）
 - Cloud SQL: インスタンス実行時間（db-f1-micro: 約$10/月）
@@ -549,7 +549,7 @@ GCPコンソールから以下のリソースを手動で削除：
 
 テスト実行時間は通常30-60分で、コストは$1-5程度です。
 
-### GCPトラブルシューティング
+### Google Cloudトラブルシューティング
 
 #### SSL証明書のプロビジョニングが完了しない
 
@@ -624,7 +624,7 @@ GCPコンソールから以下のリソースを手動で削除：
 
 **原因**:
 - Cloud SQLインスタンスの削除が完了する前にVPC Peering接続の削除を試みている
-- GCPのAPI側で削除処理が非同期で行われるため、タイミング問題が発生
+- Google CloudのAPI側で削除処理が非同期で行われるため、タイミング問題が発生
 
 **解決方法**:
 
@@ -715,12 +715,12 @@ gcloud projects add-iam-policy-binding PROJECT_ID \
    allowed_ip_ranges = ["34.85.43.93/32", "YOUR_IP/32"]
    ```
 
-### GCP CI/CD統合
+### Google Cloud CI/CD統合
 
 GitHub Actionsでテストを実行する場合の例：
 
 ```yaml
-name: GCP Cloud Run Tests
+name: Google Cloud Run Tests
 
 on:
   push:
@@ -764,7 +764,7 @@ jobs:
 - [AWS Route53料金](https://aws.amazon.com/jp/route53/pricing/)
 - [AWS Certificate Manager料金](https://aws.amazon.com/jp/certificate-manager/pricing/)
 
-### GCP
+### Google Cloud
 - [Cloud Run Testing Best Practices](https://cloud.google.com/run/docs/testing)
 - [Cloud SQL Testing](https://cloud.google.com/sql/docs/mysql/testing)
 - [Google Cloud Go SDK](https://cloud.google.com/go/docs/reference)

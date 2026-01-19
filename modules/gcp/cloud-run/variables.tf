@@ -3,12 +3,12 @@
 # ========================================
 
 variable "project_id" {
-  description = "GCP Project ID where resources will be created"
+  description = "Google Cloud Project ID where resources will be created"
   type        = string
 }
 
 variable "region" {
-  description = "GCP region for Cloud Run service"
+  description = "Google Cloud region for Cloud Run service"
   type        = string
   default     = "asia-northeast1"
 }

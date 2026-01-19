@@ -18,7 +18,7 @@
 
 このモジュールを使用する前に、以下の準備が必要です：
 
-1. **GCP Project**: 有効なGCPプロジェクトIDを用意
+1. **Google Cloud Project**: 有効なGoogle CloudプロジェクトIDを用意
 2. **APIの有効化**: 以下のAPIを有効にする必要があります
    ```bash
    gcloud services enable run.googleapis.com
@@ -219,8 +219,8 @@ No modules.
 | <a name="input_memory"></a> [memory](#input\_memory) | Memory allocation for Cloud Run service (e.g., '512Mi', '1Gi', '2Gi') | `string` | `"512Mi"` | no |
 | <a name="input_min_instances"></a> [min\_instances](#input\_min\_instances) | Minimum number of instances | `number` | `0` | no |
 | <a name="input_port"></a> [port](#input\_port) | Container port number (cannot be 4321). Cloud Run automatically sets PORT environment variable to this value. | `number` | `8080` | no |
-| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | GCP Project ID where resources will be created | `string` | n/a | yes |
-| <a name="input_region"></a> [region](#input\_region) | GCP region for Cloud Run service | `string` | `"asia-northeast1"` | no |
+| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Google Cloud Project ID where resources will be created | `string` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | Google Cloud region for Cloud Run service | `string` | `"asia-northeast1"` | no |
 | <a name="input_service_name"></a> [service\_name](#input\_service\_name) | Name of the Cloud Run service | `string` | `"basemachina-bridge"` | no |
 | <a name="input_tenant_id"></a> [tenant\_id](#input\_tenant\_id) | Tenant ID for authentication | `string` | n/a | yes |
 | <a name="input_vpc_connector_id"></a> [vpc\_connector\_id](#input\_vpc\_connector\_id) | VPC Access Connector ID for Cloud SQL connection (optional, uses Direct VPC Egress if not specified) | `string` | `null` | no |

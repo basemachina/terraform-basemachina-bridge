@@ -14,9 +14,9 @@
 
 このexampleを使用する前に、以下を準備してください：
 
-### 1. GCPプロジェクト
+### 1. Google Cloudプロジェクト
 
-有効なGCPプロジェクトを用意し、以下のAPIを有効化します：
+有効なGoogle Cloudプロジェクトを用意し、以下のAPIを有効化します：
 
 ```bash
 # 必須API
@@ -31,7 +31,7 @@ gcloud services enable dns.googleapis.com
 
 ### 2. 認証情報の設定
 
-GCPへの認証を設定します：
+Google Cloudへの認証を設定します：
 
 ```bash
 # サービスアカウントを使用する場合
@@ -403,8 +403,8 @@ labels = {
 | <a name="input_memory"></a> [memory](#input\_memory) | Memory allocation for Cloud Run service | `string` | `"512Mi"` | no |
 | <a name="input_min_instances"></a> [min\_instances](#input\_min\_instances) | Minimum number of instances | `number` | `0` | no |
 | <a name="input_port"></a> [port](#input\_port) | Port number for Bridge container | `number` | `8080` | no |
-| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | GCP Project ID | `string` | n/a | yes |
-| <a name="input_region"></a> [region](#input\_region) | GCP region | `string` | `"asia-northeast1"` | no |
+| <a name="input_project_id"></a> [project\_id](#input\_project\_id) | Google Cloud Project ID | `string` | n/a | yes |
+| <a name="input_region"></a> [region](#input\_region) | Google Cloud region | `string` | `"asia-northeast1"` | no |
 | <a name="input_service_name"></a> [service\_name](#input\_service\_name) | Service name prefix for all resources | `string` | `"basemachina-bridge-example"` | no |
 | <a name="input_tenant_id"></a> [tenant\_id](#input\_tenant\_id) | Tenant ID for BaseMachina Bridge | `string` | n/a | yes |
 | <a name="input_vpc_egress"></a> [vpc\_egress](#input\_vpc\_egress) | VPC egress setting | `string` | `"PRIVATE_RANGES_ONLY"` | no |
