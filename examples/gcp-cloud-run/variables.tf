@@ -3,12 +3,12 @@
 # ========================================
 
 variable "project_id" {
-  description = "GCP Project ID"
+  description = "Google Cloud Project ID"
   type        = string
 }
 
 variable "region" {
-  description = "GCP region"
+  description = "Google Cloud region"
   type        = string
   default     = "asia-northeast1"
 }

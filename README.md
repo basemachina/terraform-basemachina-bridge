@@ -1,6 +1,6 @@
 # BaseMachina Bridge Terraform Module
 
-BaseMachina BridgeをAWS・GCPクラウド環境に簡単にデプロイするためのTerraformモジュール集です。
+BaseMachina BridgeをAWS・Google Cloudクラウド環境に簡単にデプロイするためのTerraformモジュール集です。
 
 ## プロジェクト概要
 
@@ -18,12 +18,12 @@ BaseMachina Bridgeは、BaseMachinaからお客様のプライベートデータ
 - **簡単なデプロイ**: Terraformモジュールによる自動的なインフラストラクチャプロビジョニング
 - **Route53統合によるDNS管理**（AWS）: カスタムドメインとDNSレコードの自動作成
 - **DNS検証によるACM証明書の自動発行**（AWS）: Route53統合により、手動での証明書管理が不要
-- **Google-managed SSL証明書の自動発行**（GCP）: カスタムドメイン使用時に自動プロビジョニング
+- **Google-managed SSL証明書の自動発行**（Google Cloud）: カスタムドメイン使用時に自動プロビジョニング
 - **複数の証明書オプション**（AWS）: DNS検証、自己署名証明書、既存ACM証明書をサポート
 - **VPCエンドポイント + NAT Gatewayのハイブリッド構成**（AWS）: コスト効率とセキュリティのバランス
-- **Direct VPC Egress / VPC Connector対応**（GCP）: プライベートネットワーク統合
+- **Direct VPC Egress / VPC Connector対応**（Google Cloud）: プライベートネットワーク統合
 - **ECRプルスルーキャッシュ**（AWS）: Public ECRイメージの自動キャッシュによる可用性向上
-- **Cloud Armor IPアクセス制御**（GCP）: BaseMachina IPの自動ホワイトリスト登録
+- **Cloud Armor IPアクセス制御**（Google Cloud）: BaseMachina IPの自動ホワイトリスト登録
 - **Terratestによる包括的な統合テスト**: HTTPS疎通確認、ヘルスチェック、DNS検証を含む自動化テスト
 - **セキュアなアクセス**: 認証機能付きゲートウェイ、IPホワイトリスト、HTTPS通信の強制
 - **ヘルスチェック機能**: `/ok`エンドポイントによる監視
@@ -71,13 +71,13 @@ module "bridge" {
 
 詳細な使用例とデプロイ手順については、[examples/aws-ecs-fargate/](examples/aws-ecs-fargate/) を参照してください。
 
-### GCP (Cloud Run)
+### Google Cloud (Cloud Run)
 
 #### 前提条件
 
 - Terraform >= 1.5
 - gcloud CLI
-- GCPプロジェクト（必要なAPIを有効化）
+- Google Cloudプロジェクト（必要なAPIを有効化）
 - BaseMachinaテナントID
 - Cloud DNS Managed Zone（HTTPS/DNSを使用する場合）
 
@@ -117,18 +117,18 @@ terraform-basemachina-bridge/
 │   ├── aws/
 │   │   └── ecs-fargate/       # AWS ECS Fargateモジュール（実装済み）
 │   └── gcp/
-│       └── cloud-run/         # GCP Cloud Runモジュール（実装済み）
+│       └── cloud-run/         # Google Cloud Cloud Runモジュール（実装済み）
 ├── examples/                  # サンプル実装とデプロイ例
 │   ├── aws-ecs-fargate/       # AWS ECS Fargateデプロイ例（実装済み）
 │   │   ├── scripts/           # ユーティリティスクリプト
 │   │   └── README.md          # 詳細なデプロイ手順
-│   └── gcp-cloud-run/         # GCP Cloud Runデプロイ例（実装済み）
+│   └── gcp-cloud-run/         # Google Cloud Cloud Runデプロイ例（実装済み）
 │       ├── scripts/           # ユーティリティスクリプト
 │       └── README.md          # 詳細なデプロイ手順
 ├── test/                      # Terratest統合テスト
 │   ├── aws/                   # AWS関連テスト
-│   ├── gcp/                   # GCP関連テスト
-│   └── README.md              # テスト実行手順（AWS/GCP両方）
+│   ├── gcp/                   # Google Cloud関連テスト
+│   └── README.md              # テスト実行手順（AWS/Google Cloud両方）
 └── README.md                  # このファイル
 ```
 
@@ -136,10 +136,10 @@ terraform-basemachina-bridge/
 
 - **modules/**: 再利用可能なTerraformモジュール
   - AWS: VPC、サブネット、証明書ARNを受け取り、ECS Fargate環境を構築
-  - GCP: プロジェクトID、リージョンを受け取り、Cloud Run環境を構築
+  - Google Cloud: プロジェクトID、リージョンを受け取り、Cloud Run環境を構築
 - **examples/**: 実際のデプロイ例
   - AWS: ACM証明書、Route53レコード、RDS、Bastionホストを含む完全な動作例
-  - GCP: VPCネットワーク、Cloud SQL、Cloud DNS統合を含む完全な動作例
+  - Google Cloud: VPCネットワーク、Cloud SQL、Cloud DNS統合を含む完全な動作例
 - **test/**: Terratestによる自動化された統合テスト（HTTPS疎通確認、ヘルスチェック、DNS検証）
 
 ## ドキュメント
@@ -153,7 +153,7 @@ terraform-basemachina-bridge/
 - **テスト手順**: [test/README.md](test/README.md#aws-ecs-fargate)
   - Terratest実行方法、環境変数、実行時間、トラブルシューティング
 
-### GCP (Cloud Run)
+### Google Cloud (Cloud Run)
 
 - **モジュールドキュメント**: [modules/gcp/cloud-run/README.md](modules/gcp/cloud-run/README.md)
   - 入力変数、出力値、VPC統合、Load Balancer設定の詳細

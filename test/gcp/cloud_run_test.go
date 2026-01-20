@@ -106,7 +106,7 @@ func TestCloudRunModule(t *testing.T) {
 			// Cloud Armor IP whitelist (allow all IPs for testing)
 			// WARNING: For testing purposes only. In production, restrict to specific IPs.
 			// Note: BaseMachina IP (34.85.43.93/32) is always included by default
-			// Using "*" to allow all IPs (per GCP documentation)
+			// Using "*" to allow all IPs (per Google Cloud documentation)
 			"allowed_ip_ranges": []string{"*"},
 
 			// Cloud SQL configuration
@@ -117,14 +117,14 @@ func TestCloudRunModule(t *testing.T) {
 
 	// Ensure cleanup
 	// Note: VPC/subnet deletion may fail due to serverless-ipv4 circular dependency.
-	// This is a known GCP Direct VPC Egress limitation and is expected.
-	// Resources will be cleaned up when running the cleanup script or via GCP Console.
+	// This is a known Google Cloud Direct VPC Egress limitation and is expected.
+	// Resources will be cleaned up when running the cleanup script or via Google Cloud Console.
 	defer func() {
 		t.Log("Starting terraform destroy...")
 
 		// Wait for Cloud Run to fully release the serverless-ipv4 address
-		// GCP needs time (5-10 minutes) to clean up after Cloud Run service deletion
-		t.Log("Waiting 30 seconds for GCP to release serverless-ipv4 addresses...")
+		// Google Cloud needs time (5-10 minutes) to clean up after Cloud Run service deletion
+		t.Log("Waiting 30 seconds for Google Cloud to release serverless-ipv4 addresses...")
 		time.Sleep(30 * time.Second)
 
 		// Retry destroy up to 3 times with increasing wait times
@@ -163,13 +163,13 @@ func TestCloudRunModule(t *testing.T) {
 				strings.Contains(err.Error(), "already being used") ||
 				strings.Contains(err.Error(), "servicenetworking") {
 				t.Logf("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
-				t.Logf("⚠️  VPC deletion failed after %d retries (known GCP Direct VPC Egress limitation)", maxRetries)
+				t.Logf("⚠️  VPC deletion failed after %d retries (known Google Cloud Direct VPC Egress limitation)", maxRetries)
 				t.Logf("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━")
 				t.Logf("")
 				t.Logf("This is expected behavior:")
 				t.Logf("  - serverless-ipv4 addresses are auto-created by Cloud Run")
 				t.Logf("  - They cannot be deleted independently")
-				t.Logf("  - GCP needs 5-10 minutes to release them after Cloud Run service deletion")
+				t.Logf("  - Google Cloud needs 5-10 minutes to release them after Cloud Run service deletion")
 				t.Logf("  - This creates circular dependency: VPC ← subnet ← serverless-ipv4")
 				t.Logf("")
 				t.Logf("To clean up remaining resources:")
@@ -183,7 +183,7 @@ func TestCloudRunModule(t *testing.T) {
 				t.Logf("  # Wait 5-10 minutes, then:")
 				t.Logf("  terraform destroy -auto-approve")
 				t.Logf("")
-				t.Logf("Option 3: Delete via GCP Console")
+				t.Logf("Option 3: Delete via Google Cloud Console")
 				t.Logf("  https://console.cloud.google.com/networking/networks?project=%s", projectID)
 				t.Logf("  - Delete VPC: %s-vpc", serviceName)
 				t.Logf("")
@@ -198,7 +198,7 @@ func TestCloudRunModule(t *testing.T) {
 			} else {
 				// その他のエラーはログに出力するが、テストは失敗させない
 				t.Logf("⚠️  terraform destroy encountered an error: %v", err)
-				t.Logf("This may require manual cleanup via GCP Console or cleanup script")
+				t.Logf("This may require manual cleanup via Google Cloud Console or cleanup script")
 			}
 		}
 	}()
