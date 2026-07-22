@@ -6,14 +6,14 @@
 # - アウトバウンド: 全トラフィックを許可
 
 resource "aws_security_group" "alb" {
-  name_prefix = "${var.name_prefix}-alb-"
+  name_prefix = "${local.prefixed_app_name}-alb-"
   description = "Security group for BaseMachina Bridge ALB"
   vpc_id      = var.vpc_id
 
   tags = merge(
     var.tags,
     {
-      Name = "${var.name_prefix}-alb"
+      Name = "${local.prefixed_app_name}-alb"
     }
   )
 }
@@ -61,14 +61,14 @@ resource "aws_security_group_rule" "alb_egress_all" {
 # - アウトバウンド: 全トラフィックを許可
 
 resource "aws_security_group" "bridge" {
-  name_prefix = "${var.name_prefix}-bridge-"
+  name_prefix = "${local.prefixed_app_name}-task-"
   description = "Security group for BaseMachina Bridge tasks"
   vpc_id      = var.vpc_id
 
   tags = merge(
     var.tags,
     {
-      Name = "${var.name_prefix}-bridge"
+      Name = "${local.prefixed_app_name}-task"
     }
   )
 }

@@ -6,7 +6,7 @@
 # - CloudWatch Logsへの書き込み
 
 resource "aws_iam_role" "task_execution" {
-  name_prefix = "${var.name_prefix}-bridge-execution-"
+  name_prefix = "${local.prefixed_app_name}-execution-"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17"

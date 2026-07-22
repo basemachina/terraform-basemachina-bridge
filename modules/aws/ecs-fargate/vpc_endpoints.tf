@@ -20,14 +20,14 @@
 resource "aws_security_group" "vpc_endpoints" {
   count = var.create_vpc_endpoints ? 1 : 0
 
-  name_prefix = "${var.name_prefix}-vpc-endpoints-"
+  name_prefix = "${local.prefixed_app_name}-vpc-endpoints-"
   description = "Security group for VPC endpoints (ECR, S3, CloudWatch Logs)"
   vpc_id      = var.vpc_id
 
   tags = merge(
     var.tags,
     {
-      Name = "${var.name_prefix}-vpc-endpoints"
+      Name = "${local.prefixed_app_name}-vpc-endpoints"
     }
   )
 }
@@ -78,7 +78,7 @@ resource "aws_vpc_endpoint" "ecr_api" {
   tags = merge(
     var.tags,
     {
-      Name = "${var.name_prefix}-ecr-api-endpoint"
+      Name = "${local.prefixed_app_name}-ecr-api-endpoint"
     }
   )
 }
@@ -102,7 +102,7 @@ resource "aws_vpc_endpoint" "ecr_dkr" {
   tags = merge(
     var.tags,
     {
-      Name = "${var.name_prefix}-ecr-dkr-endpoint"
+      Name = "${local.prefixed_app_name}-ecr-dkr-endpoint"
     }
   )
 }
@@ -128,7 +128,7 @@ resource "aws_vpc_endpoint" "s3" {
   tags = merge(
     var.tags,
     {
-      Name = "${var.name_prefix}-s3-endpoint"
+      Name = "${local.prefixed_app_name}-s3-endpoint"
     }
   )
 }
@@ -152,7 +152,7 @@ resource "aws_vpc_endpoint" "logs" {
   tags = merge(
     var.tags,
     {
-      Name = "${var.name_prefix}-logs-endpoint"
+      Name = "${local.prefixed_app_name}-logs-endpoint"
     }
   )
 }
