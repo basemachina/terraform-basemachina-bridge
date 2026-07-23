@@ -1,0 +1,106 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+env:
+  TERRAFORM_VERSION: "1.13.3"
+
+jobs:
+  fmt:
+    name: terraform fmt
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+          terraform_wrapper: false
+      - name: terraform fmt -check
+        run: terraform fmt -check -recursive -diff .
+
+  validate:
+    name: terraform validate
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        dir:
+          - modules/aws/ecs-fargate
+          - modules/gcp/cloud-run
+          - examples/aws-ecs-fargate
+          - examples/gcp-cloud-run
+    steps:
+      - uses: actions/checkout@v7
+      - uses: hashicorp/setup-terraform@v4
+        with:
+          terraform_version: ${{ env.TERRAFORM_VERSION }}
+          terraform_wrapper: false
+      - name: terraform init
+        run: terraform -chdir='${{ matrix.dir }}' init -backend=false -input=false
+      - name: terraform validate
+        run: terraform -chdir='${{ matrix.dir }}' validate
+
+  tflint:
+    name: tflint
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        dir:
+          - modules/aws/ecs-fargate
+          - modules/gcp/cloud-run
+          - examples/aws-ecs-fargate
+          - examples/gcp-cloud-run
+    steps:
+      - uses: actions/checkout@v7
+      - uses: terraform-linters/setup-tflint@v6
+        with:
+          tflint_version: v0.64.0
+      - name: tflint --init
+        run: tflint --init --config "$GITHUB_WORKSPACE/.tflint.hcl"
+        env:
+          # プラグイン取得時のGitHub APIレート制限を回避
+          GITHUB_TOKEN: ${{ github.token }}
+      - name: tflint
+        run: tflint --chdir='${{ matrix.dir }}' --config "$GITHUB_WORKSPACE/.tflint.hcl"
+
+  trivy:
+    name: trivy config scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: aquasecurity/trivy-action@0.36.0
+        with:
+          scan-type: config
+          scan-ref: .
+          exit-code: "1"
+
+  docs:
+    name: terraform-docs drift check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install terraform-docs
+        run: |
+          curl -sSLo /tmp/terraform-docs.tar.gz \
+            https://github.com/terraform-docs/terraform-docs/releases/download/v0.24.0/terraform-docs-v0.24.0-linux-amd64.tar.gz
+          tar -xzf /tmp/terraform-docs.tar.gz -C /tmp terraform-docs
+          sudo install /tmp/terraform-docs /usr/local/bin/terraform-docs
+      - name: Regenerate docs
+        run: |
+          for dir in modules/aws/ecs-fargate modules/gcp/cloud-run examples/gcp-cloud-run; do
+            terraform-docs -c "$dir/.terraform-docs.yml" --output-file README.md "$dir"
+          done
+      - name: Check for drift
+        run: |
+          if ! git diff --exit-code; then
+            echo "::error::README.md is out of date. Run terraform-docs locally and commit the result."
+            exit 1
+          fi
