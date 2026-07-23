@@ -44,6 +44,8 @@ resource "aws_security_group" "bastion" {
 }
 
 # SSH インバウンドルール
+# 許可CIDRは利用者がbastion_allowed_ssh_cidrs変数で制限する前提
+#trivy:ignore:AVD-AWS-0107
 resource "aws_security_group_rule" "bastion_ingress_ssh" {
   count = var.enable_bastion ? 1 : 0
 
@@ -57,7 +59,7 @@ resource "aws_security_group_rule" "bastion_ingress_ssh" {
 }
 
 # アウトバウンドルール（全トラフィック許可）
-#tfsec:ignore:AWS007
+#trivy:ignore:AVD-AWS-0104
 resource "aws_security_group_rule" "bastion_egress_all" {
   count = var.enable_bastion ? 1 : 0
 

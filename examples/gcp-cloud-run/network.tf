@@ -14,6 +14,8 @@ resource "google_compute_network" "main" {
 # ========================================
 # Cloud Run用のサブネット（Direct VPC Egress）
 
+# サンプル用のためVPCフローログは省略
+#trivy:ignore:AVD-GCP-0029
 resource "google_compute_subnetwork" "main" {
   name          = "${var.service_name}-subnet"
   ip_cidr_range = "10.0.0.0/24"

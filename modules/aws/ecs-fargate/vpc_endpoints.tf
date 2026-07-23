@@ -46,7 +46,7 @@ resource "aws_security_group_rule" "vpc_endpoints_ingress_https" {
 }
 
 # Allow all outbound traffic
-#tfsec:ignore:AWS007
+#trivy:ignore:AVD-AWS-0104
 resource "aws_security_group_rule" "vpc_endpoints_egress_all" {
   count = var.create_vpc_endpoints ? 1 : 0
 

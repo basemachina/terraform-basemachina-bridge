@@ -42,7 +42,7 @@ resource "aws_security_group_rule" "alb_ingress_https_additional" {
 }
 
 # ALBからのアウトバウンドルール（全トラフィック許可）
-#tfsec:ignore:AWS007
+#trivy:ignore:AVD-AWS-0104
 resource "aws_security_group_rule" "alb_egress_all" {
   type              = "egress"
   from_port         = 0
@@ -85,7 +85,7 @@ resource "aws_security_group_rule" "bridge_ingress_http" {
 }
 
 # Bridgeからのアウトバウンドルール（全トラフィック許可）
-#tfsec:ignore:AWS007
+#trivy:ignore:AVD-AWS-0104
 resource "aws_security_group_rule" "bridge_egress_all" {
   type              = "egress"
   from_port         = 0
