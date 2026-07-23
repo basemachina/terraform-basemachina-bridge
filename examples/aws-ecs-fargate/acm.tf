@@ -29,22 +29,3 @@ resource "aws_acm_certificate" "self_signed" {
     create_before_destroy = true
   }
 }
-
-# ========================================
-# Certificate ARN Selection
-# ========================================
-#
-# This local value selects the certificate ARN to use:
-# - If enable_acm_import is true, use the imported self-signed certificate
-# - Otherwise, use the certificate_arn variable (external certificate)
-#
-# Note: We use try() to handle the case where the ACM resource doesn't exist yet.
-# This allows Terraform to determine the count values during plan phase.
-
-locals {
-  certificate_arn = var.enable_acm_import ? try(aws_acm_certificate.self_signed[0].arn, null) : var.certificate_arn
-
-  # Determine if certificate is configured (for count expressions)
-  # This is a static value that can be determined during plan phase
-  has_certificate = var.enable_acm_import || var.certificate_arn != null
-}

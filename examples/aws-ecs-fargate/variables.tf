@@ -27,6 +27,11 @@ variable "nat_gateway_id" {
 # SSL/TLS証明書
 # ========================================
 
+# NOTE: 現在この変数はどこからも参照されていない（ALBの証明書は常に
+# route53_domain.tf の aws_acm_certificate.bridge が使われる）。
+# 外部証明書を渡せるようにする配線の修正は別PRで対応予定のため、
+# 利用者向けインターフェースとして宣言のみ維持している。
+# tflint-ignore: terraform_unused_declarations
 variable "certificate_arn" {
   description = "HTTPS通信用のACM証明書ARN（オプション、未指定の場合はHTTPリスナーを使用）"
   type        = string
