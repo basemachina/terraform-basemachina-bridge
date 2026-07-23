@@ -162,27 +162,37 @@ Direct VPC Egressを使用する場合、以下を確認してください：
 `allowed_ip_ranges`に自分のIPアドレスが含まれていることを確認してください。デフォルトではBaseMachinaのIP（34.85.43.93/32）のみが許可されています。
 
 <!-- BEGIN_TF_DOCS -->
+
+
+## 要件
+
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5 |
 | <a name="requirement_google"></a> [google](#requirement\_google) | ~> 5.0 |
+
+## プロバイダー
 
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_google"></a> [google](#provider\_google) | 5.45.2 |
+
+## モジュール
 
 ## Modules
 
 No modules.
 
+## リソース
+
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [google_cloud_run_v2_service.bridge](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/cloud_run_v2_service) | resource |
 | [google_cloud_run_v2_service_iam_member.invoker](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/cloud_run_v2_service_iam_member) | resource |
 | [google_compute_backend_service.default](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_backend_service) | resource |
@@ -201,10 +211,12 @@ No modules.
 | [google_project_iam_member.log_writer](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/project_iam_member) | resource |
 | [google_service_account.bridge](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/service_account) | resource |
 
+## 入力変数
+
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_allowed_ip_ranges"></a> [allowed\_ip\_ranges](#input\_allowed\_ip\_ranges) | Additional IP ranges allowed to access the service. BaseMachina IP (34.85.43.93/32) is automatically included unless '*' is specified to allow all IPs. | `list(string)` | `[]` | no |
 | <a name="input_bridge_image_tag"></a> [bridge\_image\_tag](#input\_bridge\_image\_tag) | Bridge container image tag (default: latest). Specify a specific version like 'v1.0.0' if needed. | `string` | `"latest"` | no |
 | <a name="input_cpu"></a> [cpu](#input\_cpu) | CPU allocation for Cloud Run service (e.g., '1', '2', '4') | `string` | `"1"` | no |
@@ -228,10 +240,12 @@ No modules.
 | <a name="input_vpc_network_id"></a> [vpc\_network\_id](#input\_vpc\_network\_id) | VPC network ID for Direct VPC Egress (optional, required if using Direct VPC Egress) | `string` | `null` | no |
 | <a name="input_vpc_subnetwork_id"></a> [vpc\_subnetwork\_id](#input\_vpc\_subnetwork\_id) | VPC subnetwork ID for Direct VPC Egress (optional, required if using Direct VPC Egress) | `string` | `null` | no |
 
+## 出力値
+
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_backend_service_id"></a> [backend\_service\_id](#output\_backend\_service\_id) | Backend service ID |
 | <a name="output_bridge_image_uri"></a> [bridge\_image\_uri](#output\_bridge\_image\_uri) | Bridge container image URI used by Cloud Run service |
 | <a name="output_dns_record_fqdn"></a> [dns\_record\_fqdn](#output\_dns\_record\_fqdn) | Fully qualified domain name |

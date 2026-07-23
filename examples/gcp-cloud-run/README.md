@@ -344,33 +344,43 @@ labels = {
 - [BaseMachina Bridge Module README](../../modules/gcp/cloud-run/README.md)
 
 <!-- BEGIN_TF_DOCS -->
+
+
+## 要件
+
 ## Requirements
 
 | Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.0 |
+| ---- | ------- |
+| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5 |
 | <a name="requirement_google"></a> [google](#requirement\_google) | ~> 5.0 |
 | <a name="requirement_null"></a> [null](#requirement\_null) | ~> 3.0 |
 | <a name="requirement_random"></a> [random](#requirement\_random) | ~> 3.0 |
 
+## プロバイダー
+
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_google"></a> [google](#provider\_google) | 5.45.2 |
 | <a name="provider_null"></a> [null](#provider\_null) | 3.2.4 |
 | <a name="provider_random"></a> [random](#provider\_random) | 3.7.2 |
 
+## モジュール
+
 ## Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_basemachina_bridge"></a> [basemachina\_bridge](#module\_basemachina\_bridge) | ../../modules/gcp/cloud-run | n/a |
+
+## リソース
 
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [google_compute_global_address.private_ip_address](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_global_address) | resource |
 | [google_compute_network.main](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_network) | resource |
 | [google_compute_subnetwork.main](https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/compute_subnetwork) | resource |
@@ -382,12 +392,13 @@ labels = {
 | [null_resource.cleanup_vpc_peering](https://registry.terraform.io/providers/hashicorp/null/latest/docs/resources/resource) | resource |
 | [random_id.db_name_suffix](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/id) | resource |
 | [random_password.db_password](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password) | resource |
-| [google_dns_managed_zone.main](https://registry.terraform.io/providers/hashicorp/google/latest/docs/data-sources/dns_managed_zone) | data source |
+
+## 入力変数
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_allowed_ip_ranges"></a> [allowed\_ip\_ranges](#input\_allowed\_ip\_ranges) | IP ranges allowed to access the service | `list(string)` | <pre>[<br/>  "34.85.43.93/32"<br/>]</pre> | no |
 | <a name="input_cpu"></a> [cpu](#input\_cpu) | CPU allocation for Cloud Run service | `string` | `"1"` | no |
 | <a name="input_database_name"></a> [database\_name](#input\_database\_name) | Database name | `string` | `"sampledb"` | no |
@@ -409,10 +420,12 @@ labels = {
 | <a name="input_tenant_id"></a> [tenant\_id](#input\_tenant\_id) | Tenant ID for BaseMachina Bridge | `string` | n/a | yes |
 | <a name="input_vpc_egress"></a> [vpc\_egress](#input\_vpc\_egress) | VPC egress setting | `string` | `"PRIVATE_RANGES_ONLY"` | no |
 
+## 出力値
+
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_bridge_domain_url"></a> [bridge\_domain\_url](#output\_bridge\_domain\_url) | Bridge domain URL (if domain\_name is configured) |
 | <a name="output_bridge_load_balancer_ip"></a> [bridge\_load\_balancer\_ip](#output\_bridge\_load\_balancer\_ip) | Load Balancer external IP address |
 | <a name="output_bridge_service_account_email"></a> [bridge\_service\_account\_email](#output\_bridge\_service\_account\_email) | Service account email used by Cloud Run |
