@@ -7,6 +7,13 @@ resource "random_id" "db_name_suffix" {
   byte_length = 4
 }
 
+# 接続テスト用の簡易DB（プライベートIPのみ）のため、詳細な監査ログフラグとTLS強制は省略
+#trivy:ignore:AVD-GCP-0014
+#trivy:ignore:AVD-GCP-0015
+#trivy:ignore:AVD-GCP-0016
+#trivy:ignore:AVD-GCP-0020
+#trivy:ignore:AVD-GCP-0022
+#trivy:ignore:AVD-GCP-0025
 resource "google_sql_database_instance" "main" {
   name             = "${var.service_name}-db-${random_id.db_name_suffix.hex}"
   database_version = "POSTGRES_16"

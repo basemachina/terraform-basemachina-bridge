@@ -160,7 +160,7 @@ variable "tags" {
 }
 
 variable "name_prefix" {
-  description = "Prefix for resource names"
+  description = "Prefix for resource names. Up to 8 characters, alphanumeric and hyphens only, and must not start or end with a hyphen."
   type        = string
   default     = ""
 

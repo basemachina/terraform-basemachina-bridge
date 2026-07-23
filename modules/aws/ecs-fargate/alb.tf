@@ -6,7 +6,8 @@
 # - ACM証明書によるTLS 1.2以上の暗号化
 # - IPホワイトリストによるアクセス制御
 
-#tfsec:ignore:AWS005
+# BaseMachinaからHTTPSで到達できる必要があるため意図的にpublic（アクセス元はSGでBaseMachina IPに制限）
+#trivy:ignore:AVD-AWS-0053
 resource "aws_lb" "main" {
   name               = "${var.name_prefix}basemachina-bridge"
   internal           = false

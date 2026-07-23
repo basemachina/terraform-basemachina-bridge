@@ -59,7 +59,9 @@ func TestECSFargateModule(t *testing.T) {
 	}
 
 	uniqueID := strings.ToLower(random.UniqueId())
-	namePrefix := fmt.Sprintf("test-%s", uniqueID)
+	// name_prefixはモジュールのvalidationで8文字以内に制限されているため、
+	// "test-" (cleanupExistingS3Endpointsのテストリソース判定に使用) + ランダム3文字で8文字に収める
+	namePrefix := fmt.Sprintf("test-%s", uniqueID[:3])
 
 	// Required env vars for tf vars
 	vpcID := mustGetenv(t, "TEST_VPC_ID")

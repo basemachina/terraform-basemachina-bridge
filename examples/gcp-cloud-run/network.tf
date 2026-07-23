@@ -14,6 +14,11 @@ resource "google_compute_network" "main" {
 # ========================================
 # Cloud Run用のサブネット（Direct VPC Egress）
 
+# サンプル用のためVPCフローログとPrivate Google Accessの設定は省略
+# （フローログのチェックIDはtrivyのバージョンにより異なるため新旧両方を指定）
+#trivy:ignore:AVD-GCP-0029
+#trivy:ignore:GCP-0076
+#trivy:ignore:GCP-0075
 resource "google_compute_subnetwork" "main" {
   name          = "${var.service_name}-subnet"
   ip_cidr_range = "10.0.0.0/24"

@@ -38,7 +38,7 @@ resource "aws_security_group_rule" "rds_ingress_from_bridge" {
 }
 
 # RDSからのアウトバウンドルール（全トラフィック許可）
-#tfsec:ignore:AWS007
+#trivy:ignore:AVD-AWS-0104
 resource "aws_security_group_rule" "rds_egress_all" {
   type              = "egress"
   from_port         = 0
@@ -88,7 +88,10 @@ resource "random_password" "rds_master_password" {
 # ========================================
 # Bridge接続テスト用のPostgreSQLインスタンス
 
-#tfsec:ignore:AWS051 tfsec:ignore:AWS052 tfsec:ignore:AWS053
+# 接続テスト用の簡易DBのため、削除保護・IAM認証・CMKによるPerformance Insights暗号化は省略
+#trivy:ignore:AVD-AWS-0176
+#trivy:ignore:AVD-AWS-0177
+#trivy:ignore:AVD-AWS-0078
 resource "aws_db_instance" "postgres" {
   identifier_prefix = "${var.name_prefix}-bridge-example-"
 
@@ -186,6 +189,8 @@ resource "aws_iam_role_policy_attachment" "rds_monitoring" {
 # ========================================
 # RDS接続情報をSecrets Managerに保存
 
+# サンプル用のため暗号化はデフォルトのAWS管理キーを使用（CMK省略）
+#trivy:ignore:AVD-AWS-0098
 resource "aws_secretsmanager_secret" "rds_credentials" {
   name_prefix = "${var.name_prefix}-rds-credentials-"
   description = "RDS PostgreSQL connection credentials for Bridge example"

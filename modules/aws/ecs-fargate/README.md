@@ -128,7 +128,7 @@ Public ECRのイメージをPrivate ECRにキャッシュする機能です。
 ## Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.5 |
 | <a name="requirement_aws"></a> [aws](#requirement\_aws) | ~> 6.0 |
 
@@ -137,7 +137,7 @@ Public ECRのイメージをPrivate ECRにキャッシュする機能です。
 ## Providers
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="provider_aws"></a> [aws](#provider\_aws) | 6.54.0 |
 
 ## モジュール
@@ -151,7 +151,7 @@ No modules.
 ## Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_cloudwatch_log_group.bridge](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_log_group) | resource |
 | [aws_ecr_pull_through_cache_rule.public_ecr](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecr_pull_through_cache_rule) | resource |
 | [aws_ecs_cluster.main](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/ecs_cluster) | resource |
@@ -191,7 +191,7 @@ No modules.
 ## Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_additional_alb_ingress_cidrs"></a> [additional\_alb\_ingress\_cidrs](#input\_additional\_alb\_ingress\_cidrs) | Additional CIDR blocks to allow HTTPS access to ALB (for testing or additional clients). BaseMachina IP (34.85.43.93/32) is always included. | `list(string)` | `[]` | no |
 | <a name="input_bridge_image_tag"></a> [bridge\_image\_tag](#input\_bridge\_image\_tag) | Bridge container image tag (default: latest). Specify a specific version like 'v1.0.0' if needed. | `string` | `"latest"` | no |
 | <a name="input_certificate_arn"></a> [certificate\_arn](#input\_certificate\_arn) | ACM certificate ARN for HTTPS listener (required) | `string` | n/a | yes |
@@ -205,7 +205,7 @@ No modules.
 | <a name="input_fetch_timeout"></a> [fetch\_timeout](#input\_fetch\_timeout) | Timeout for fetching public keys (e.g., 10s, 30s) | `string` | `"10s"` | no |
 | <a name="input_log_retention_days"></a> [log\_retention\_days](#input\_log\_retention\_days) | CloudWatch Logs retention period (days) | `number` | `7` | no |
 | <a name="input_memory"></a> [memory](#input\_memory) | Memory (MiB) for ECS task | `number` | `512` | no |
-| <a name="input_name_prefix"></a> [name\_prefix](#input\_name\_prefix) | Prefix for resource names | `string` | `""` | no |
+| <a name="input_name_prefix"></a> [name\_prefix](#input\_name\_prefix) | Prefix for resource names. Up to 8 characters, alphanumeric and hyphens only, and must not start or end with a hyphen. | `string` | `""` | no |
 | <a name="input_nat_gateway_id"></a> [nat\_gateway\_id](#input\_nat\_gateway\_id) | Existing NAT Gateway ID to use (optional). If not specified, a new NAT Gateway will be created for Bridge. | `string` | `null` | no |
 | <a name="input_port"></a> [port](#input\_port) | Port number for Bridge container (cannot be 4321) | `number` | `8080` | no |
 | <a name="input_private_subnet_ids"></a> [private\_subnet\_ids](#input\_private\_subnet\_ids) | List of private subnet IDs for ECS tasks | `list(string)` | n/a | yes |
@@ -221,7 +221,7 @@ No modules.
 ## Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_alb_arn"></a> [alb\_arn](#output\_alb\_arn) | ALBのARN（リソース参照用） |
 | <a name="output_alb_dns_name"></a> [alb\_dns\_name](#output\_alb\_dns\_name) | ALBのDNS名（Route 53レコード作成用） |
 | <a name="output_alb_security_group_id"></a> [alb\_security\_group\_id](#output\_alb\_security\_group\_id) | ALBセキュリティグループのID（通信ルール設定用） |
